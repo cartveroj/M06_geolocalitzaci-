@@ -1,0 +1,21 @@
+/* Archivo de estilos */
+#map { 
+    height: 310px; 
+    padding: 20px;
+}
+.containerMap{
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background-color: #fff;
+    padding: 10px;
+}
+.title{
+    text-align: center;
+    padding: 10px;
+}
+#tablasmix{
+    display: flex; 
+    align-items: center;  /*Centrar horizontalmente */
+    justify-content: center; 
+}
