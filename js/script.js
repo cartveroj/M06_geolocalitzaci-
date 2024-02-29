@@ -5,28 +5,31 @@ let map;
 window.onload = function() {
 	map = L.map('map').setView([41.387917, 2.169917], 13); //coordenadas de Barcelona
 	L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    maxZoom: 19,
-    attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+	maxZoom: 19,
+	attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
 	}).addTo(map);
+
+	fetch("js/data/earthMeteorites.json")
+	.then((response) => response.json())
+	.then((data) => {
+		dades = data;		
+		dades.forEach( element => {
+			meteorit = {
+				id:element.id,
+				name:element.name,
+				mass:(element.mass != null)?element.mass :"0",
+				recclass:element.recclass,
+				geolocalizacion : (element.geolocation && element.geolocation.coordinates)? element.geolocation.coordinates:null
+			}
+			arrayMeteoritos.push(meteorit);
+			
+		});
+		printList(arrayMeteoritos)
+
+	});
   };
 
-fetch("js/data/earthMeteorites.json")
-.then((response) => response.json())
-.then((data) => {
-	dades = data;		
-	dades.forEach( element => {
-		meteorit = {
-			id:element.id,
-			name:element.name,
-			mass:(element.mass != null)?element.mass :"0",
-			recclass:element.recclass,
-            geolocalizacion : (element.geolocation && element.geolocation.coordinates)? element.geolocation.coordinates:null
-		}
-		arrayMeteoritos.push(meteorit);
-	});
-    printList(arrayMeteoritos)
 
-});
 
 //Funcion que printa la tabla por pantalla
 function printList(array){
